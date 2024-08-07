@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortdle</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="gear-icon" id="gearIcon">
+            <img src="./images/gear.png" alt="Configurações" width="20" height="20">
+        </div>
+        <div class="language-icon" id="languageIcon">
+            <img src="./images/brazil_flag.png" alt="Trocar Idioma" width="30" height="30">
+        </div>
+    </header>
+
+    <main class="mainContainer">
+        <section class="container">
+            <img id='logo_fortdle' src="./images/fortdlelogo.png" alt="Logo do Fortdle">
+            <h1>Adivinhe a arma do Fortnite</h1>
+            <div class="game-mode">
+                <h2>Modo:
+                    <select id="gameModeSelect">
+                        <option value="guessWeapon">Adivinhe a Arma</option>
+                        <option value="guessPlayer">Qual é o Player</option>
+                        <option value="hardMode">Modo Difícil</option>
+                    </select>
+                </h2>
+                <form id="guessForm">
+                    <input id="weaponInput" type="text" placeholder="Digite o nome da arma">
+                    <button type="submit">Adivinhar</button>
+                </form>
+                <div class="hint" id="hintContainer" style="display:none;">
+                    <div class="lamp" id="lamp1">💡</div>
+                    <div class="lamp" id="lamp2">💡</div>
+                    <div class="lamp" id="lamp3">💡</div>
+                </div>
+                <div class="lives">
+                    <div id="healthBar">
+                        <div id="healthBarFill"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section id="resultsContainer" class="resultsContainer hidden">
+        <table>
+            <thead>
+                <tr>
+                    <th>Característica</th>
+                    <th>Seu Palpite</th>
+                    <th>Resultado</th>
+                </tr>
+            </thead>
+            <tbody id="resultsTableBody">
+                <!-- Linhas da tabela serão adicionadas aqui via JavaScript -->
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-media">
+                <a href="https://github.com/SillyWooper/Fortdle.git"><img src="./images/github.png" alt="Github"></a>
+                <a href="https://discord.gg/Y9PZbFF44x"><img src="./images/Logo-Discord.png" alt="Discord"></a>
+                <a href="https://www.youtube.com/@goldenbolado3605"><img src="./images/youtube.png" alt="Youtube"></a>
+            </div>
+            <p>&copy; 2024 Oscarna | <a href="/pages/sobre.html">Sobre</a> | <a href="/pages/politica.html">Privacy Policy</a></p>
+        </div>
+    </footer>
+
+    <div id="settingsPopup" class="popup">
+        <div class="popup-content">
+            <span id="closePopup" class="closePopup">&times;</span>
+            <h2>Configurações</h2>
+            <div class="setting-item">
+                <label>Modo Alto Contraste</label>
+                <label class="switch">
+                    <input type="checkbox" id="DarkModeOption">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <label>Clicar Para Validar</label>
+                <label class="switch">
+                    <input type="checkbox" id="clickToValidateOption">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <label>Mutar Som de Jogo</label>
+                <label class="switch">
+                    <input type="checkbox" id="MuteSoundOption">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <label>Cronômetro: <span id="timer">24:00:00</span></label>
+            <hr>
+            <button id="reportBugButton">Reportar Bug</button>
+            <button id="aboutButton">Sobre</button>
+        </div>
+    </div>
+
+    <div id="languagePopup" class="popup">
+        <div class="popup-content">
+            <span id="closeLanguagePopup" class="closePopup">&times;</span>
+            <h2>Idioma</h2>
+            <p>Idioma selecionado: Português</p>
+        </div>
+    </div>
+
+    <div id="hintPopup" class="popup">
+        <div class="popup-content">
+            <span id="closeHintPopup" class="closePopup">&times;</span>
+            <h2>Dica</h2>
+            <p id="hintText">Esta é uma dica, boboca</p>
+        </div>
+    </div>
+
+    <div id="howToPlayPopup" class="popup">
+        <div class="popup-content">
+            <h2>Como Jogar</h2>
+            <p>Tente adivinhar a arma correta com base nas dicas fornecidas. Você tem 5 vidas por dia.</p>
+            <button id="understoodButton">Entendi</button>
+        </div>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+
+</html>
