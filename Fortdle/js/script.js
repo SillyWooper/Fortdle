@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let lives = 100;
     let rounds = 0;
-    let music = new Audio('./path/to/your/music.mp3'); // Insira o caminho correto para o seu arquivo de música
+    let music = new Audio('./path/to/your/music.mp3'); // Insira o caminho correto quando tiver, pq não tem música ainda
     music.loop = true;
 
     howToPlayPopup.style.display = 'block';
