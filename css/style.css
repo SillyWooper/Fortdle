@@ -127,12 +127,11 @@ button:hover {
 }
 
 footer {
-    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     text-align: center;
-    padding: 10px 0;
+    padding: 30px;
     z-index: 1000;
     background: linear-gradient(to top, black, transparent);
 }
@@ -222,21 +221,6 @@ button {
 
 button:hover {
     background-color: #0055aa;
-}
-
-.lamp {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background-color: #ccc;
-    border-radius: 50%;
-    margin: 0 5px;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-
-.lamp.active {
-    background-color: yellow;
 }
 
 .social-media a {
@@ -338,7 +322,7 @@ input:checked + .slider:before {
     }
 }
 
-/* Modo Alto Contraste */
+/* Modo Alto Contraste  (Outra hora a gente acerta)
 
 body.dark-mode {
     background-color: #1e1e1e;
@@ -382,3 +366,5 @@ body.dark-mode button:hover {
 body.dark-mode .lamp.active {
     background-color: #f0e68c;
 }
+
+*/
