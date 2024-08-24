@@ -5,131 +5,140 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fortdle</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-    <header>
-        <section class="gear-icon" id="gearIcon">
-            <img src="./images/gear.png" alt="Configurações" width="20" height="20">
-        </section>
-        <section class="language-icon" id="languageIcon">
-            <img src="./images/brazil_flag.png" alt="Trocar Idioma" width="30" height="30">
-        </section>
-    </header>
 
-    <main class="mainContainer">
-        <section class="container">
-            <img id='logo_fortdle' src="./images/fortdlelogo.png" alt="Logo do Fortdle" width="600" height="240">
-            <h1>Acerte a arma do Fortnite</h1>
-            <section class="game-mode">
-                <h2>Modo:
-                    <select id="gameModeSelect">
-                        <option value="guessWeapon">Acerte a Arma</option>
-                        <!--<option value="hardMode">Modo Difícil</option> Não sei se vai ter hard mode-->
-                    </select>
-                </h2>
+    <section class="container">
 
-                <input id="weaponInput" type="text" placeholder="Digite o nome da arma">
-                <button type="submit">Adivinhar</button>
+        <div class="header-container text-center">
 
-                <section class="lives">
-                    <section id="healthBar">
-                        <section id="healthBarFill"></section>
-                    </section>
-                </section>
-            </section>
-        </section>
-    </main>
+            <img src="./images/fortdlelogo.png" alt="logo_fort">
 
-    <section id="resultsContainer" class="resultsContainer hidden">
-        <table>
-            <thead>
-                <tr>
-                    <th>Característica</th>
-                    <th>Seu Palpite</th>
-                    <th>Resultado</th>
-                </tr>
-            </thead>
-            <tbody id="resultsTableBody">
-                <!-- Linhas da tabela serão adicionadas aqui via JavaScript, não tire essa desgraça daqui -->
-            </tbody>
-        </table>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#configModal"
+                style="border: none;">
+                <img src="./images/gear.png" alt="">
+            </button>
+
+        </div>
+        <div id="subContainer" class="subContainer">
+
+            <div class="game text-center">
+
+                <div>
+                    <h1>Advinhe a skin de Fortnite</h1>
+                </div>
+
+                <!--Talvez as dicas venham aqui vamos ver se da tempo ou se a gente consegue-->
+                <div>
+                    <span>💡 💡 💡 💡</span>
+                </div>
+
+            </div>
+
+            <div class="answers">
+
+                <div class="guessBox">
+
+                    <div class="guess d-flex justify-content-center">
+
+                        <!--Essa class w-25 so pode ser alterado em 1/4 do valor, so vai de 25 em 25, 
+                        mas eu vou deixar assim mesmo. Se quiser mudar pode tirar o w-25 e botar: style:"width: 50%"-->
+
+                        <div id="inputBox" class="input-group w-25">
+
+                            <input autocomplete="off" id="inputPoggers" type="text" class="form-control"
+                                placeholder="Digite o nome da skin..." aria-label="Recipient's username"
+                                aria-describedby="buttonPoggers">
+
+                            <button class="btn btn-primary" type="button" id="buttonPoggers">
+                                <!--Esses svg bizarro são os icones que tem disponiveis no site do bootstrap-->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                                    class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                                </svg>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!--NÃO TIRA ESSA DIV ELA É TUDO O QUE FAZ OS RESULTADOS APARECEREM-->
+                <div id="tableContainer" class="table-responsive text-center"
+                    style="max-width: 30%; max-height: 300px; overflow: auto; margin: auto;">
+                    <div id="resultado"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="footer">
+
+            <div class="redes d-flex colum justify-content-center">
+
+                <div class='redeItem'>
+                    <!--Discord nn ta com nada no momento-->
+                    <a href="" style="text-decoration: none; color: inherit;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+                            class="bi bi-discord" viewBox="0 0 16 16">
+                            <path
+                                d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612" />
+                        </svg>
+                    </a>
+                </div>
+
+                <div class='redeItem'>
+
+                    <a href="https://github.com/SillyWooper/Fortdle" style="text-decoration: none; color: inherit;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+                            class="bi bi-github" viewBox="0 0 16 16">
+                            <path
+                                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
+                        </svg>
+                    </a>
+
+                </div>
+
+            </div>
+            <div class="copy text-center text-dark"><span>Fortdle — 2024</span></div>
+            <!--
+            Dei uma pesquisada e pelo visto politica de privacidade é so avisando que ta tudo de boa pegando algumas informações pessoais da pessoa
+            mas acho que a gente nn vai fazer isso entt por enquanto vou deixar comentado
+            <div class="privacidade text-center text-light"><a href=""><span>Política de Privacidade</span></a></div>-->
+
+        </div>
+
     </section>
 
-    <footer>
-        <section class="footer-content">
-            <section class="social-media">
-                <a href="https://github.com/SillyWooper/Fortdle.git"><img src="./images/github.png" alt="Github"></a>
-                <a href="https://discord.gg/Y9PZbFF44x"><img src="./images/Logo-Discord.png" alt="Discord"></a>
-                <a href="https://www.youtube.com/@goldenbolado3605"><img src="./images/youtube.png" alt="Youtube"></a>
-            </section>
-            <p>&copy; 2024 Oscarna | <a href="/pages/politica.html">Privacy Policy</a></p>
-        </section>
-    </footer>
+    <!-- Modais -->
+    <div class="modal fade" id="configModal" tabindex="-1" aria-labelledby="configModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-light" id="configModal">Configuração</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://media.tenor.com/M8CrcswsP04AAAAM/silly-silly-cat.gif" alt="">
+                    <p class="text-light">nn sei oq botar aqui lololol</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!--Modal Configuração-->
-    <section id="settingsPopup" class="popup">
-        <section class="popup-content">
-            <span id="closePopup" class="closePopup">&times;</span>
-            <h2>Configurações</h2>
-            <section class="setting-item">
-                <label>Modo Alto Contraste</label>
-                <label class="switch">
-                    <input type="checkbox" id="DarkModeOption">
-                    <span class="slider round"></span>
-                </label>
-            </section>
-            <section class="setting-item">
-                <label>Clicar Para Validar</label>
-                <label class="switch">
-                    <input type="checkbox" id="clickToValidateOption">
-                    <span class="slider round"></span>
-                </label>
-            </section>
-            <section class="setting-item">
-                <label>Mutar Som de Jogo</label>
-                <label class="switch">
-                    <input type="checkbox" id="MuteSoundOption">
-                    <span class="slider round"></span>
-                </label>
-            </section>
-            <label>Cronômetro: <span id="timer">24:00:00</span></label>
-            <hr>
-            <button id="reportBugButton">Reportar Bug</button>
-            <button id="aboutButton"><a href="/pages/politica.html">Sobre</a></button>
-        </section>
-    </section>
-
-    <section id="languagePopup" class="popup">
-        <section class="popup-content">
-            <span id="closeLanguagePopup" class="closePopup">&times;</span>
-            <h2>Idioma</h2>
-            <p>Idioma selecionado: Português</p>
-        </section>
-    </section>
-
-    <!-- Dicas ainda não serão implementadas
-
-    <section id="hintPopup" class="popup">
-        <section class="popup-content">
-            <span id="closeHintPopup" class="closePopup">&times;</span>
-            <h2>Dica</h2>
-            <p id="hintText">Esta é uma dica, boboca</p>
-        </section>
-    </section>
-    -->
-
-    <!--Fist login modal-->
-    <section id="howToPlayPopup" class="popup">
-        <section class="popup-content">
-            <h2>Como Jogar</h2>
-            <p>Tente asectioninhar a arma correta com base nas dicas fornecidas. Você tem 5 vidas por dia.</p>
-            <button id="understoodButton">Entendi</button>
-        </section>
-    </section>
-
-    <script src="./js/script.js"></script>
-    
 </body>
+<script src="./js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
 </html>
