@@ -1,10 +1,7 @@
-No momento os itens em configuração, não estão funcionando e devem ser alterados, como o som de jogo, que não existe mais. Nesse espaço pode ser colocado outro item de
-relevância, como modo difícil, tirando ele de modos de jogo e deixando como uma opção para qualquer modo. O modo alto contraste deve ser alterado para que volte a funcionar,
-visto que após algumas atualizações, ele deixou de ser responsivo.
+No momento os itens em configuração, não estão funcionando e devem ser alterados, como o som de jogo, que não existe mais. Nesse espaço pode ser colocado outro item de relevância, como modo difícil (hard mode que fica como uma opção nas configurações), tirando ele de modos de jogo e deixando como uma opção para qualquer modo. O modo alto contraste deve ser alterado para que volte a funcionar, visto que após algumas atualizações, ele deixou de ser responsivo.
 - melhorar a logo do fordle (ela está em baixa qualidade em alguns monitores e a sombra preta deixa ela estranha visualmente
 - fazer efeito de vitória, podendo ser uma música, um texto, para dar um feedback para o usuário que adivinhar o item corretamente
-- infinite mode
-- hard mode (fica nas configurações e tira as dicas e coloca armas mais difíceis)
+- infinite mode
 
 
 
