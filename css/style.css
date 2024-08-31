@@ -16,7 +16,7 @@ body {
     background-repeat: no-repeat;
 }
 
-.game{
+.game {
 
     width: 25rem;
 
@@ -26,26 +26,74 @@ body {
     border: solid black 1px;
     color: white;
     border-radius: 10px;
+
     /*Fundo feio de mais, vamo ver depois uma cor mais legalzinha*/
     background-color: rgb(75, 75, 78);
     border: solid black 1px;
 
 }
 
-.footer{
+.footer {
 
     margin-top: 15rem;
 
 }
 
-#inputBox{
+#inputBox {
 
     padding: 10px;
 
 }
 
-.redeItem{
+.redeItem {
 
     margin: 10px;
+
+}
+
+.bulb {
+
+    /* Remove o fundo */
+    background: none;
+    /* Remove a borda */
+    border: none;
+    /* Remove o padding */
+    padding: 0;
+    /* Muda o cursor para indicar que é clicável */
+    cursor: pointer;
+    /* Remove a borda de foco */
+    outline: none;
+
+}
+
+.suggestions-container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border: 1px solid #ccc;
+    max-height: 20rem;
+    width: 20rem;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 1000;
+    
+}
+
+.sugestao-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.sugestao-item:hover {
+    background-color: #f1f1f1;
+}
+
+
+/* Este minusculo pedaço de código diminui o tamanho da imagem, para que não fica aquele bgl gigantesco */
+#imgGuess{
+
+    width: 128px;
+    height: 128px;
 
 }

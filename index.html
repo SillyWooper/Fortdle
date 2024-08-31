@@ -35,8 +35,46 @@
                 </div>
 
                 <!--Talvez as dicas venham aqui vamos ver se da tempo ou se a gente consegue-->
-                <div>
-                    <span>💡 💡 💡 💡</span>
+                <!--Fiz as dicas oh yeah!!!11!!11-->
+                <div class="container-dicas d-flex justify-content-center">
+                    <div class="bulb">
+                        <button>
+
+                            💡
+
+                        </button>
+
+                    </div>
+                    <div class="bulb">
+                        <button>
+
+                            💡
+
+                        </button>
+
+                    </div>
+                    <div class="bulb">
+                        <button>
+
+                            💡
+
+                        </button>
+                    </div>
+                    <div class="bulb">
+                        <button>
+
+                            💡
+
+                        </button>
+
+                    </div>
+                </div>
+
+                <!--Aqui é o container que vai aparecer a dica :3-->
+                <div class="dica-invisivel">
+
+                    
+
                 </div>
 
             </div>
@@ -69,12 +107,12 @@
 
                     </div>
 
-                </div>
+                    <!--NÃO TIRA ESSA DIV ELA É TUDO O QUE FAZ OS RESULTADOS APARECEREM-->
+                    <div id="tableContainer" class="table-responsive text-center"
+                        style="max-width: 30%; max-height: 300px; overflow: auto; margin: auto;">
+                        <div id="resultado" class="suggestions-container"></div>
+                    </div>
 
-                <!--NÃO TIRA ESSA DIV ELA É TUDO O QUE FAZ OS RESULTADOS APARECEREM-->
-                <div id="tableContainer" class="table-responsive text-center"
-                    style="max-width: 30%; max-height: 300px; overflow: auto; margin: auto;">
-                    <div id="resultado"></div>
                 </div>
 
             </div>
@@ -120,6 +158,7 @@
     </section>
 
     <!-- Modais -->
+
     <div class="modal fade" id="configModal" tabindex="-1" aria-labelledby="configModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-dark">
@@ -134,6 +173,8 @@
             </div>
         </div>
     </div>
+
+    <!--Fim dos modais-->
 
 </body>
 <script src="./js/script.js"></script>

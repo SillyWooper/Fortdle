@@ -20,17 +20,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const data = await response.json();
 
-            if (data.data && data.data.length > 0) {
+            if (data.data && data.data.length > 0){
                 // Seleciona uma "skin do dia" aleatoriamente
                 const indiceAleatorio = Math.floor(Math.random() * data.data.length);
                 const skinDoDia = data.data[indiceAleatorio]; // Define a "skin do dia"
-
                 const iconV = skinDoDia.images.smallIcon;
                 const nomeV = skinDoDia.name;
                 const raridadeV = skinDoDia.rarity.displayValue;
                 const capituloV = Number(skinDoDia.introduction.chapter); // Transformando em número
                 const temporadaV = skinDoDia.introduction.season;
                 const anoLancamentoV = new Date(skinDoDia.added).getFullYear();
+
+                //Variaveis que vão aparecer na parte das dicas
+                
 
                 console.log(`Icone: ${iconV}`);
                 console.log(`Nome: ${nomeV}`);
@@ -54,9 +56,43 @@ document.addEventListener('DOMContentLoaded', function () {
                         resultado.textContent = `Nenhum cosmético encontrado com o nome "${valorInput}".`;
                     }
 
-                    // Verifica se o nome inserido pelo usuário corresponde à "skin do dia"
-                    if (skinDoDia.name.toLowerCase() === valorInput) {
-                        criarTabela(skinDoDia, skinDoDia); // Criar tabela com as informações da "skin do dia"
+                    // Limpa o texto do input após o botão ser pressionado
+                    input.value = '';
+                });
+
+                // Evento input para sugerir skins
+                input.addEventListener('input', () => {
+                    const valorInput = input.value.toLowerCase().trim();
+                    const sugestoes = data.data.filter(cosmetico =>
+                        cosmetico.name.toLowerCase().includes(valorInput)
+                    );
+
+                    mostrarSugestoes(sugestoes);
+                });
+
+                function mostrarSugestoes(sugestoes) {
+                    // Limpa as sugestões anteriores
+                    resultado.innerHTML = '';
+                    resultado.style.display = 'flex';
+
+                    // Adiciona as novas sugestões
+                    sugestoes.forEach(cosmetico => {
+                        const div = document.createElement('div');
+                        div.textContent = cosmetico.name;
+                        div.classList.add('sugestao-item');
+                        div.addEventListener('click', () => {
+                            input.value = cosmetico.name;
+                            resultado.innerHTML = ''; // Limpa as sugestões ao clicar
+                            resultado.style.display = 'none';
+                        });
+                        resultado.appendChild(div);
+                    });
+                }
+
+                // Oculta as sugestões ao clicar fora do input
+                document.addEventListener('click', (event) => {
+                    if (!input.contains(event.target) && !resultado.contains(event.target)) {
+                        resultado.innerHTML = ''; // Limpa as sugestões
                     }
                 });
             } else {
@@ -66,19 +102,18 @@ document.addEventListener('DOMContentLoaded', function () {
         } catch (error) {
             console.error('Erro na requisição:', error);
         }
-    }
 
-    // Função para criar a tabela
-    function criarTabela(cosmetico, skinDoDia) {
-        let tabela = document.querySelector('#subContainer table');
-        let tbody;
-    
-        if (!tabela) {
-            tabela = document.createElement('table');
-            tabela.classList.add('table', 'table-striped', 'mt-4');
-            
-            const thead = document.createElement('thead');
-            thead.innerHTML = `
+        // Função para criar a tabela
+        function criarTabela(cosmetico, skinDoDia) {
+            let tabela = document.querySelector('#subContainer table');
+            let tbody;
+
+            if (!tabela) {
+                tabela = document.createElement('table');
+                tabela.classList.add('table', 'table-striped', 'mt-4');
+
+                const thead = document.createElement('thead');
+                thead.innerHTML = `
                 <tr>
                     <th>Imagem</th>
                     <th>Nome</th>
@@ -88,30 +123,31 @@ document.addEventListener('DOMContentLoaded', function () {
                     <th>Ano de Lançamento</th>
                 </tr>
             `;
-            tabela.appendChild(thead);
-    
-            tbody = document.createElement('tbody');
-            tabela.appendChild(tbody);
-    
-            document.getElementById('subContainer').appendChild(tabela);
-        } else {
-            tbody = tabela.querySelector('tbody');
-        }
+                tabela.appendChild(thead);
 
-        // Função para determinar o estilo da célula
-        function estiloCelula(valor, valorSkinDoDia) {
-            if (valor === valorSkinDoDia) {
-                return { classe: 'bg-success', seta: '' };
-            } else if (valor > valorSkinDoDia) {
-                return { classe: 'bg-warning', seta: '↓' };
+                tbody = document.createElement('tbody');
+                tabela.appendChild(tbody);
+
+                document.getElementById('subContainer').appendChild(tabela);
             } else {
-                return { classe: 'bg-warning', seta: '↑' };
+                tbody = tabela.querySelector('tbody');
             }
-        }
-    
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td><img src="${cosmetico.images.smallIcon}" alt="${cosmetico.name}" ></td>
+
+            // Função para determinar o estilo da célula
+            function estiloCelula(valor, valorSkinDoDia) {
+                if (valor === valorSkinDoDia) {
+                    return { classe: 'bg-success', seta: '' };
+                } else if (valor > valorSkinDoDia) {
+                    return { classe: 'bg-warning', seta: '↓' };
+                } else {
+                    return { classe: 'bg-warning', seta: '↑' };
+                }
+            }
+
+            const tr = document.createElement('tr');
+
+            tr.innerHTML = `
+            <td><img src="${cosmetico.images.smallIcon}" alt="${cosmetico.name}" id='imgGuess'></td>
             <td class="${cosmetico.name === skinDoDia.name ? 'bg-success' : 'bg-danger'}">${cosmetico.name}</td>
             <td class="${cosmetico.rarity.displayValue === skinDoDia.rarity.displayValue ? 'bg-success' : 'bg-danger'}">${cosmetico.rarity.displayValue}</td>
             <td class="${estiloCelula(Number(cosmetico.introduction.chapter), Number(skinDoDia.introduction.chapter)).classe}">
@@ -124,47 +160,26 @@ document.addEventListener('DOMContentLoaded', function () {
                 ${new Date(cosmetico.added).getFullYear()} ${estiloCelula(new Date(cosmetico.added).getFullYear(), new Date(skinDoDia.added).getFullYear()).seta}
             </td>
         `;
-    
-        // Adiciona a nova linha como a primeira do tbody
-        tbody.insertBefore(tr, tbody.firstChild);
-    }
 
-    // Função de Validação Separada
-    function validarCosmetico(cosmeticoEncontrado, nome, raridade, capitulo, temporada) {
-        let mensagem = `Nome: ${cosmeticoEncontrado.name}\n`;
-
-        const raridadeJ = cosmeticoEncontrado.rarity.displayValue;
-        const capituloJ = Number(cosmeticoEncontrado.introduction.chapter); // Transformando em número
-        const temporadaJ = cosmeticoEncontrado.introduction.season;
-
-        if (raridadeJ.toLowerCase() === raridade.toLowerCase()) {
-            mensagem += `Mesma raridade: ${raridade}`;
-        } else {
-            mensagem += `Raridade diferente`;
+            // Adiciona a nova linha como a primeira do tbody
+            tbody.insertBefore(tr, tbody.firstChild);
         }
 
-        if (capituloJ === capitulo) {
-            mensagem += `Mesmo capítulo: ${capitulo}`;
-        } else if (capituloJ > capitulo) {
-            mensagem += `Capítulo menor: ${capituloJ}`;
-        } else {
-            mensagem += `Capítulo maior: ${capituloJ}`;
-        }
+        // Função de Validação Separada
+        function validarCosmetico(cosmeticoEncontrado, nome, raridade, capitulo, temporada) {
+            let mensagem = `Nome: ${cosmeticoEncontrado.name}\n`;
 
-        if (temporadaJ === temporada) {
-            mensagem += `Mesma temporada: ${temporada}`;
-        } else if (temporadaJ > temporada) {
-            mensagem += `Temporada menor: ${temporadaJ}`;
-        } else {
-            mensagem += `Temporada maior: ${temporadaJ}`;
-        }
+            const raridadeJ = cosmeticoEncontrado.rarity.displayValue;
+            const capituloJ = Number(cosmeticoEncontrado.introduction.chapter); // Transformando em número
+            const temporadaJ = cosmeticoEncontrado.introduction.season;
 
-        if (cosmeticoEncontrado.name.toLowerCase() === nome.toLowerCase()) {
-            mensagem = `Você acertou! A skin do dia era: ${nome}`;
+            // Mostra a mensagem e depois a oculta
+            resultado.textContent = mensagem;
+        
+            return mensagem;
         }
-
-        return mensagem;
     }
 
     cosmInfo();
+
 });
