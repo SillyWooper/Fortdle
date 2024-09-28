@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let tentativas = 0;
     let vidaAtual = vidaMaxima;
     let jogoFinalizado = false;
+    let contadorAcertos = 0;  // Inicializa o contador de acertos
 
     function atualizarVidaDisplay() {
         contadorVida.textContent = `${vidaAtual}`;
@@ -25,17 +26,26 @@ document.addEventListener('DOMContentLoaded', function () {
             const response = await fetch(urlQuery, { headers: { 'Authorization': apiKey } });
             if (!response.ok) throw new Error(`Erro na requisição: ${response.status}`);
             const data = await response.json();
-            const cosmetics = data.data || [];
-
+    
+            const cosmetics = data.data.filter(skin => 
+                skin.name.toLowerCase() !== 'tbd' &&
+                skin.name.toLowerCase() !== 'Humano Bill' &&
+                skin.name.toLowerCase() !== 'Unidade de Autodefesa Stark' &&
+                skin.rarity.displayValue.toLowerCase() !== 'comum'
+            ) || [];
+    
             if (cosmetics.length > 0) {
                 const skinDoDia = selecionarSkinAleatoria(cosmetics);
-
-                // Definir as dicas com base na skin do dia
+    
+                const descricao = skinDoDia.description || 'não há';
+                const set = skinDoDia.set && skinDoDia.set.value ? skinDoDia.set.value : 'não há';
+    
                 const dicas = [
-                    `Descrição: ${skinDoDia.description}`,
-                    `Set: ${skinDoDia.set.value}`,
-                    `${skinDoDia.images.smallIcon}` // Última dica é a URL da imagem
+                    `Descrição: ${descricao}`,
+                    `Set: ${set}`,
+                    `${skinDoDia.images.smallIcon}`  // Última dica é a URL da imagem
                 ];
+    
                 configurarEventos(cosmetics, skinDoDia, dicas);
             } else {
                 console.log('Índice fora do alcance ou array vazio.');
@@ -48,12 +58,17 @@ document.addEventListener('DOMContentLoaded', function () {
     function selecionarSkinAleatoria(data) {
         const indiceAleatorio = Math.floor(Math.random() * data.length);
         const skinDoDia = data[indiceAleatorio];
+    
+        const capitulo = skinDoDia.introduction && skinDoDia.introduction.chapter ? skinDoDia.introduction.chapter : "0";
+        const temporada = skinDoDia.introduction && skinDoDia.introduction.season ? skinDoDia.introduction.season : "0";
+    
         console.log(`Icone: ${skinDoDia.images.smallIcon}`);
         console.log(`Nome: ${skinDoDia.name}`);
         console.log(`Raridade: ${skinDoDia.rarity.displayValue}`);
-        console.log(`Capitulo: ${Number(skinDoDia.introduction.chapter)}`);
-        console.log(`Temporada: ${skinDoDia.introduction.season}`);
+        console.log(`Capitulo: ${Number(capitulo)}`);
+        console.log(`Temporada: ${Number(temporada)}`);
         console.log(`Ano de Lançamento: ${new Date(skinDoDia.added).getFullYear()}`);
+        
         return skinDoDia;
     }
 
@@ -137,6 +152,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Função para atualizar o display de acertos
+    function atualizarSequenciaAcertos() {
+        contadorAcertos += 1;  // Incrementa o número de acertos
+        const acertosDisplay = document.getElementById('acertosDisplay');
+        acertosDisplay.textContent = `${contadorAcertos}`;  // Atualiza o número de acertos na tela
+    }
+
     function validarSkin(inputValor, cosmetics, skinDoDia) {
         const cosmeticoEncontrado = cosmetics.find(cosmetico => cosmetico.name.toLowerCase() === inputValor);
 
@@ -144,6 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (cosmeticoEncontrado.name.toLowerCase() === skinDoDia.name.toLowerCase()) {
                 resultado.textContent = `Você acertou! A skin é "${skinDoDia.name}".`;
                 criarTabela(cosmeticoEncontrado, skinDoDia);
+                atualizarSequenciaAcertos();  // Atualiza a sequência de acertos
                 finalizarJogo(true);
                 return true;
             } else {
@@ -177,10 +200,10 @@ document.addEventListener('DOMContentLoaded', function () {
     function criarTabela(cosmetico, skinDoDia) {
         let tabela = document.querySelector('#subContainer table');
         let tbody;
-
+    
         if (!tabela) {
             tabela = document.createElement('table');
-            tabela.classList.add('table', 'table-striped', 'mt-4');
+            tabela.classList.add('table-fortnite', 'mt-4');
             tabela.innerHTML = `
                 <thead>
                     <tr>
@@ -199,37 +222,21 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             tbody = tabela.querySelector('tbody');
         }
-
+    
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td><img src="${cosmetico.images.smallIcon}" alt="${cosmetico.name}" id='imgGuess'></td>
             <td class="${cosmetico.name === skinDoDia.name ? 'bg-success' : 'bg-danger'}">${cosmetico.name}</td>
             <td class="${cosmetico.rarity.displayValue === skinDoDia.rarity.displayValue ? 'bg-success' : 'bg-danger'}">${cosmetico.rarity.displayValue}</td>
-            <td class="${estiloCelula(Number(cosmetico.introduction.chapter), Number(skinDoDia.introduction.chapter)).classe}">
-                ${cosmetico.introduction.chapter} ${estiloCelula(Number(cosmetico.introduction.chapter), Number(skinDoDia.introduction.chapter)).seta}
-            </td>
-            <td class="${estiloCelula(cosmetico.introduction.season, skinDoDia.introduction.season).classe}">
-                ${cosmetico.introduction.season} ${estiloCelula(cosmetico.introduction.season, skinDoDia.introduction.season).seta}
-            </td>
-            <td class="${estiloCelula(new Date(cosmetico.added).getFullYear(), new Date(skinDoDia.added).getFullYear()).classe}">
-                ${new Date(cosmetico.added).getFullYear()} ${estiloCelula(new Date(cosmetico.added).getFullYear(), new Date(skinDoDia.added).getFullYear()).seta}
-            </td>
+            <td class="${Number(cosmetico.introduction.chapter) === Number(skinDoDia.introduction.chapter) ? 'bg-success' : 'bg-danger'}">${Number(cosmetico.introduction.chapter)}</td>
+            <td class="${Number(cosmetico.introduction.season) === Number(skinDoDia.introduction.season) ? 'bg-success' : 'bg-danger'}">${Number(cosmetico.introduction.season)}</td>
+            <td class="${new Date(cosmetico.added).getFullYear() === new Date(skinDoDia.added).getFullYear() ? 'bg-success' : 'bg-danger'}">${new Date(cosmetico.added).getFullYear()}</td>
         `;
-        tbody.insertBefore(tr, tbody.firstChild);
-    }
-
-    function estiloCelula(valor, valorSkinDoDia) {
-        if (valor === valorSkinDoDia) {
-            return { classe: 'bg-success', seta: '' };
-        } else if (valor > valorSkinDoDia) {
-            return { classe: 'bg-warning', seta: '↓' };
-        } else {
-            return { classe: 'bg-warning', seta: '↑' };
-        }
+        tbody.appendChild(tr);
     }
 
     function reduzirVida() {
-        vidaAtual -= 5;
+        vidaAtual -= 10;
         if (vidaAtual <= 0) {
             vidaAtual = 0;
             finalizarJogo(false);
@@ -237,18 +244,12 @@ document.addEventListener('DOMContentLoaded', function () {
         atualizarVidaDisplay();
     }
 
-    function finalizarJogo(vitoria) {
+    function finalizarJogo(acertou) {
         jogoFinalizado = true;
-        input.disabled = true;
-        botao.disabled = true;
-        if (vitoria) {
-            window.alert("ganho eba você é tão sigma");
-        } else {
-            window.alert("Você perdeu todas as vidas! Tente novamente.");
-        }
+        resultado.innerHTML = acertou
+            ? `<span class="resultado-acertou">Você venceu! Parabéns! A skin era ${skinDoDia.name}.</span>`
+            : `<span class="resultado-errou">Você perdeu! A skin correta era ${skinDoDia.name}.</span>`;
     }
 
-    atualizarEstadoLampadas();
-    atualizarVidaDisplay();
     cosmInfo();
 });

@@ -28,7 +28,7 @@ body {
     border-radius: 10px;
 
     /*Fundo feio de mais, vamo ver depois uma cor mais legalzinha*/
-    background-color: rgb(75, 75, 78);
+    background-color: #1e2a38;
     border: solid black 1px;
 
 }
@@ -128,7 +128,7 @@ margin-top: 0.7rem;
 
     width: 300px;
     height: 20px;
-    background-color: #212529;
+    background-color: #1e2a38;
 
 }
 
@@ -153,4 +153,116 @@ margin-top: 0.7rem;
 
     margin-left: 0.4rem;
 
+}
+
+.botaodireita{
+    float: right;
+}
+
+.container{
+    padding-top: 30px;
+}
+
+/* Estilos para a tabela */
+.table-fortnite {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    font-family: 'Burbank Big Condensed', sans-serif;
+    background-color: #2e3a4b;
+    color: white;
+    border: 3px solid #f7c708;
+    border-radius: 10px;
+    box-shadow: 0 0 20px 4px rgba(247, 199, 8, 0.6);
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+
+.table-fortnite th, .table-fortnite td {
+    padding: 15px;
+    border-bottom: 2px solid #f7c708;
+    text-align: center;
+}
+
+.table-fortnite th {
+    background-color: #1e2a38;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    border-bottom: 3px solid #f7c708;
+}
+
+.table-fortnite td {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+
+/* Efeito de fade-in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos para células corretas (verde) e incorretas (vermelho) */
+.bg-success {
+    background-color: #34c759 !important;
+    color: white !important;
+}
+
+.bg-danger {
+    background-color: #ff3b30 !important;
+    color: white !important;
+}
+
+.bg-warning {
+    background-color: #ffcc00 !important;
+    color: black !important;
+}
+
+
+
+#sequencia-acertos {
+    margin-top: 20px;
+}
+
+#lista-acertos {
+    list-style: none;
+    padding: 0;
+}
+
+#lista-acertos li {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 10px 0;
+    padding: 10px;
+    position: relative;
+    display: inline-block;
+    animation: popEffect 0.5s ease-out forwards;  /* Efeito simples ao aparecer */
+}
+
+/* Efeito de pop-up ao adicionar o número */
+@keyframes popEffect {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.streak{
+    color: aliceblue;
+    font-size: large;
+    display: flex;
+    text-align: center;
+    padding: 5px;
 }
