@@ -258,11 +258,3 @@ margin-top: 0.7rem;
         opacity: 1;
     }
 }
-
-.streak{
-    color: aliceblue;
-    font-size: large;
-    display: flex;
-    text-align: center;
-    padding: 5px;
-}

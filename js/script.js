@@ -10,10 +10,23 @@ document.addEventListener('DOMContentLoaded', function () {
     const imgDica = document.querySelector('.imgDica');
     const tentativasParaDesbloquear = [6, 8, 10];
     const vidaMaxima = 100;
-    let contadorAcertos = 0;
+
     let tentativas = 0;
     let vidaAtual = vidaMaxima;
     let jogoFinalizado = false;
+
+
+    // Armazenar as variaveis no localStorage
+    // O "||" é pra caso nn tenha nada no armazenamento seja a o que esta após ela
+    let streak = parseInt(localStorage.getItem('streak')) || 0;
+    let vida = parseInt(localStorage.getItem('vida')) || vidaMaxima; 
+    
+    // tentei adicionar a vida no local storage
+    //let vida = parseInt(localStorage.getItem('vida'));
+
+    // Exibir streak na tela
+    const acertosDisplay = document.getElementById('acertosDisplay');
+    acertosDisplay.textContent = `${streak}`;
 
 
     function atualizarVidaDisplay() {
@@ -78,7 +91,12 @@ document.addEventListener('DOMContentLoaded', function () {
         return skinDoDia;
     }
     
-
+    // Função para resetar a streak
+    function resetarStreak() {
+        streak = 0;
+        localStorage.setItem('streak', streak); // Atualiza no localStorage
+        acertosDisplay.textContent = `${streak}`; // Atualiza o display da streak
+    }
 
     function atualizarEstadoLampadas() {
         bulbs.forEach((bulb, index) => {
@@ -167,17 +185,14 @@ document.addEventListener('DOMContentLoaded', function () {
             if (cosmeticoEncontrado.name.toLowerCase() === skinDoDia.name.toLowerCase()) {
                 resultado.textContent = `Você acertou! A skin é "${skinDoDia.name}".`;
                 criarTabela(cosmeticoEncontrado, skinDoDia);
-                atualizarSequenciaAcertos();  // Chama a função para atualizar os acertos
-                finalizarJogo(true);
-                return true;
+                WIN();
+
             } else {
                 resultado.textContent = `Skin encontrada, mas não é a correta. Continue tentando!`;
                 criarTabela(cosmeticoEncontrado, skinDoDia);
-                return false;
             }
         } else {
             resultado.textContent = `Nenhum cosmético encontrado com o nome "${inputValor}".`;
-            return false;
         }
     }
 
@@ -199,6 +214,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+
+    // adicionando comentário so pra perguntar depois pra que serve. Não entendi lol
     document.addEventListener('DOMContentLoaded', function () {
         // Exemplo de dados fictícios para uma skin, substitua pelos dados reais
         const skinDoDia = {
@@ -267,6 +284,8 @@ document.addEventListener('DOMContentLoaded', function () {
         tabela.classList.add('fade-in');
     }
     
+
+
     function estiloCelula(valor, valorSkinDoDia) {
         if (valor === valorSkinDoDia) {
             return { classe: 'bg-success', seta: '' };
@@ -288,46 +307,52 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function reduzirVida() {
-        vidaAtual -= 5;
-        if (vidaAtual <= 0) {
-            vidaAtual = 0;
-            finalizarJogo(false);
-        }
-        atualizarVidaDisplay();
-    }
-
+    
     function fireConfetti() {
-
+        
         const jsConfetti = new JSConfetti();
         jsConfetti.addConfetti({
             emojis: ['🎉', '✨', '🥳', '😁', '🎇', '😎'],
         }).then(() => jsConfetti.addConfetti())
     }
-        
+    
     document.addEventListener("DOMContentLoaded", () => {
         fireConfetti();
     });
+    
+    function WIN() {
 
-    function finalizarJogo(vitoria) {
-        jogoFinalizado = true;
         input.disabled = true;
         botao.disabled = true;
-        if (vitoria) {
-            fireConfetti();
-        } else {
-            window.alert("Você perdeu todas as vidas! Tente novamente.");
-        }
+        fireConfetti();
+        atualizarSequenciaAcertos()
+
     }
 
+    // Nome ta "reduzir vida" mas basicamente ta tendo que ser usada como finalizador de run. porque é o que tem pra hoje
+    function reduzirVida() {
+        vidaAtual -= 5;  // Reduz a vida atual
+        if (vidaAtual <= 0) {
+            vidaAtual = 0;  // Garante que a vida não fique negativa
+            input.disabled = true;
+            botao.disabled = true;
+            resetarStreak()
+            window.alert("Você perdeu todas as vidas... Tente novamente.")
+
+        }
+        atualizarVidaDisplay(); // Atualiza a exibição da vida
+    }
+    
+
     function atualizarSequenciaAcertos() {
-        contadorAcertos += 1;  // Incrementa o número de acertos
-        const acertosDisplay = document.getElementById('acertosDisplay');
-        acertosDisplay.textContent = `Acertos: ${contadorAcertos}`;  // Atualiza o número de acertos na tela
+        streak += 1;
+        localStorage.setItem('streak', streak); // Atualiza no localStorage
+        acertosDisplay.textContent = `${streak}`; // Atualiza o display da streak
     }
 
 
     atualizarEstadoLampadas();
     atualizarVidaDisplay();
     cosmInfo();
+    console.log(streak)
 });
