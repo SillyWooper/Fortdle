@@ -47,6 +47,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 skin.name.toLowerCase() !== 'tbd' &&
                 skin.name.toLowerCase() !== 'Humano Bill' &&
                 skin.name.toLowerCase() !== 'Unidade de Autodefesa Stark' &&
+                skin.name.toLowerCase() !== 'Saqueador Pesado' &&
+                skin.name.toLowerCase() !== 'Tigresa' &&
+                skin.name.toLowerCase() !== 'Jonesy — O Primeiro' &&
+                skin.name.toLowerCase() !== 'Jonesy — O Segundeiro' &&
                 skin.rarity.displayValue.toLowerCase() !== 'comum'
             );
 
@@ -437,6 +441,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function WIN() {
         input.disabled = true;
         botao.disabled = true;
+        var victoryModal = new bootstrap.Modal(document.getElementById('victoryModal'));
+        victoryModal.show();
         fireConfetti();
         atualizarSequenciaAcertos();
     
@@ -460,7 +466,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (vidaAtual <= 0) {
             input.disabled = true;
             botao.disabled = true;
-            alert("Você perdeu todas as vidas... Tente novamente.");
+            var defeatModal = new bootstrap.Modal(document.getElementById('defeatModal'));
+            defeatModal.show();
     
             // Marcar para limpar a tabela no próximo refresh
             limparTabelaNoProximoRefresh();
