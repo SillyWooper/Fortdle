@@ -436,15 +436,25 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('tentativas', tentativas);
         localStorage.setItem('vida', vidaAtual);
         atualizarVidaDisplay();
-    }
+    } 
     
     function WIN() {
         input.disabled = true;
         botao.disabled = true;
+        // Exibe a skin no modal de vitória
+        const skinDoDia = JSON.parse(localStorage.getItem('skinDoDia')); // Recupera a skin armazenada
+        if (skinDoDia) {
+            // Atualiza o modal com as informações da skin
+            document.getElementById('vitoriaSkinImagem').src = skinDoDia.images.smallIcon;
+            document.getElementById('vitoriaSkinNome').textContent = skinDoDia.name;
+        }
+
         var victoryModal = new bootstrap.Modal(document.getElementById('victoryModal'));
         victoryModal.show();
         fireConfetti();
         atualizarSequenciaAcertos();
+
+        
     
         // Marcar para limpar a tabela no próximo refresh
         limparTabelaNoProximoRefresh();
