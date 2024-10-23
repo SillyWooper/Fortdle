@@ -466,6 +466,15 @@ document.addEventListener('DOMContentLoaded', function () {
         if (vidaAtual <= 0) {
             input.disabled = true;
             botao.disabled = true;
+            
+            // Exibe a skin no modal de derrota
+            const skinDoDia = JSON.parse(localStorage.getItem('skinDoDia')); // Recupera a skin armazenada
+            if (skinDoDia) {
+                // Atualiza o modal com as informações da skin
+                document.getElementById('derrotaSkinImagem').src = skinDoDia.images.smallIcon;
+                document.getElementById('derrotaSkinNome').textContent = skinDoDia.name;
+            }
+    
             var defeatModal = new bootstrap.Modal(document.getElementById('defeatModal'));
             defeatModal.show();
     
@@ -477,6 +486,7 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.removeItem('tentativas');
             localStorage.removeItem('skinDoDia');
             localStorage.removeItem('vida');
+            
             tentativas = 0;
             dicasUsadas = [false, false, false];
             cosmInfo();  // Seleciona uma nova skin após a perda
@@ -486,15 +496,29 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         atualizarVidaDisplay();
     }
+    
 
     function atualizarSequenciaAcertos() {
         streak += 1;
         localStorage.setItem('streak', streak); // Atualiza no localStorage
         acertosDisplay.textContent = `${streak}`; // Atualiza o display da streak
     }
+    
+    function Proximo(){
+    const botaoProximo = document.getElementById('Proximo');
+    botaoProximo.addEventListener('click', () => {
+        location.reload(); // Recarrega a página
+    });
+    const botaoProximo2 = document.getElementById('Proximo2');
+        botaoProximo2.addEventListener('click', () => {
+            location.reload(); // Recarrega a página
+        });
+}
 
     cosmInfo();
     atualizarEstadoLampadas();
     atualizarVidaDisplay();
     verificarLimparTabela();
+    verifLoose();
+    Proximo();
 });
