@@ -282,8 +282,8 @@ document.addEventListener('DOMContentLoaded', function () {
             tbody = tabela.querySelector('tbody');
         }
 
-        const nomeClasse = cosmetico.name === skinDoDia.name ? 'bg-success' : 'bg-danger';
-        const raridadeClasse = cosmetico.rarity.displayValue === skinDoDia.rarity.displayValue ? 'bg-success' : 'bg-danger';
+        const nomeClasse = cosmetico.name === skinDoDia.name ? 'cell-similar' : 'cell-lower';
+        const raridadeClasse = cosmetico.rarity.displayValue === skinDoDia.rarity.displayValue ? 'cell-similar' : 'cell-lower';
         const capituloEstilo = estiloCelula(Number(cosmetico.introduction.chapter), Number(skinDoDia.introduction.chapter));
         const temporadaEstilo = estiloCelula(Number(cosmetico.introduction.season), Number(skinDoDia.introduction.season));
         const anoEstilo = estiloCelula(new Date(cosmetico.added).getFullYear(), new Date(skinDoDia.added).getFullYear());
@@ -311,14 +311,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function estiloCelula(valor, valorSkinDoDia) {
         if (valor === valorSkinDoDia) {
-            return { classe: 'bg-success', seta: '' };
+            return { classe: 'cell-similar', seta: '' };
         } else if (valor > valorSkinDoDia) {
-            return { classe: 'bg-warning', seta: '↓' };
+            return { classe: 'cell-higher', seta: '↓' };
         } else {
-            return { classe: 'bg-warning', seta: '↑' };
+            return { classe: 'cell-lower', seta: '↑' };
         }
     }
-
+    
     function salvarTabelaNoLocalStorage() {
         const tabela = document.querySelector('#subContainer table tbody');
         if (tabela) {

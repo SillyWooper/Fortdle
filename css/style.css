@@ -211,23 +211,6 @@ margin-top: 0.7rem;
     }
 }
 
-/* Estilos para células corretas (verde) e incorretas (vermelho) */
-.bg-success {
-    background-color: #34c759 !important;
-    color: white !important;
-}
-
-.bg-danger {
-    background-color: #ff3b30 !important;
-    color: white !important;
-}
-
-.bg-warning {
-    background-color: #ffcc00 !important;
-    color: black !important;
-}
-
-
 
 #sequencia-acertos {
     margin-top: 20px;
@@ -269,4 +252,19 @@ a{
 .sobre{
     display: flex;
     flex-direction: row;
+}
+
+.cell-similar {
+    background-color: #77e991; /* Verde suave para células que combinam */
+    color: #155724; /* Texto verde escuro */
+}
+
+.cell-higher {
+    background-color: #ffeeba; /* Amarelo suave para valores maiores */
+    color: #856404; /* Texto amarelo escuro */
+}
+
+.cell-lower {
+    background-color: #f0a8ae; /* Vermelho suave para valores menores */
+    color: #721c24; /* Texto vermelho escuro */
 }
