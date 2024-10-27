@@ -1,0 +1,46 @@
+body{
+    margin-top: 20px;
+    background-image: url(../images/sobre.png);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+
+}
+
+.container{
+    padding-top: 40px;
+    border-radius: 20px;
+    background-color: #363636;
+}
+
+h3{
+    padding: 20px;
+    color: white;
+}
+
+h6{
+    padding: 20px;
+    color: white;
+}
+h4{
+    padding-bottom: 40px;
+    color: white;
+    text-decoration: none;
+}
+a{
+    text-decoration: none;
+    color: rgb(109, 111, 112);
+}
+:hover.a{
+    color: rgb(56, 57, 58);
+}
+.bus{
+    float: right;
+    border: 30px black;
+    border-radius: 50%;
+
+}
+
+:hover.bus{
+    background-color: rgb(255, 255, 255);
+}
