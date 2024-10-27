@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     font-family: "fortnite", sans-serif;
-    font-size: 22px;
+
 }
 
 @font-face {
@@ -47,8 +47,7 @@ body {
 }
 
 .redeItem {
-
-    margin: 10px;
+    display: flex;
 
 }
 
@@ -133,29 +132,23 @@ margin-top: 0.7rem;
 
 }
 
+.vida-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Ajusta o espaço entre o ícone e a barra */
+
+}
+
+.barra-container {
+    width: 200px; /* Defina a largura desejada para a barra de vida */
+}
+
 .vida {
-    width: 100%;
-    height: 20px; 
-    border-radius: 4px;
-    background-image: linear-gradient(to left, #54E136, #00AA26);
-    transition: width 0.3s ease, background-image 0.3s ease;
+    height: 20px; /* Ajusta a altura da barra de vida */
+    background-color: #4caf50; /* Exemplo de cor para a barra */
 }
 
-
-.vida-icon{
-
-    margin-right: 0.4rem;
-
-    height: 25px;
-    width: 25px;
-    
-}
-
-.contador-vida{
-
-    margin-left: 0.4rem;
-
-}
 
 .botaodireita{
     float: right;
@@ -247,7 +240,7 @@ a{
     text-decoration: none;
     color: white;
     font-size: x-large;
-    margin-left: 50px;
+    margin: 10px;
 }
 .sobre{
     display: flex;
@@ -267,4 +260,14 @@ a{
 .cell-lower {
     background-color: #f0a8ae; /* Vermelho suave para valores menores */
     color: #721c24; /* Texto vermelho escuro */
+}
+
+.fonte{
+    font-size: 20px;
+}
+
+.fogo{
+    display: flex;
+    margin: 15px;
+    margin-top: 10px;
 }

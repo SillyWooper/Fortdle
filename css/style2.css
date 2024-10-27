@@ -38,9 +38,4 @@ a{
     float: right;
     border: 30px black;
     border-radius: 50%;
-
-}
-
-:hover.bus{
-    background-color: rgb(255, 255, 255);
 }
