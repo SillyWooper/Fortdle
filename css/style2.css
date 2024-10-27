@@ -22,6 +22,18 @@ h6{
     padding: 20px;
     color: white;
 }
+h4{
+    padding-bottom: 40px;
+    color: white;
+    text-decoration: none;
+}
+a{
+    text-decoration: none;
+    color: rgb(109, 111, 112);
+}
+:hover.a{
+    color: rgb(56, 57, 58);
+}
 .bus{
     float: right;
     border: 30px black;

@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     font-family: "fortnite", sans-serif;
+    font-size: 22px;
 }
 
 @font-face {
@@ -258,4 +259,14 @@ margin-top: 0.7rem;
         transform: scale(1);
         opacity: 1;
     }
+}
+a{
+    text-decoration: none;
+    color: white;
+    font-size: x-large;
+    margin-left: 50px;
+}
+.sobre{
+    display: flex;
+    flex-direction: row;
 }
